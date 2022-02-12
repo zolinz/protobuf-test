@@ -2,11 +2,20 @@ package main
 
 import (
 	"fmt"
-	"github.com/zolinz/protobuf-test/simple"
+	"github.com/zolinz/protobuf-test/simplepb"
 )
 
 func main() {
 	fmt.Println("hello Zoli")
-	simple := simple.Simple{}
+	doSimple()
 
+}
+
+func doSimple() {
+	sm := simplepb.Simple{
+		Name: "Zolika",
+		Age:  46,
+	}
+
+	fmt.Print(sm)
 }
