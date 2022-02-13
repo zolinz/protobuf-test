@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/golang/protobuf/jsonpb"
+	"github.com/golang/protobuf/proto"
 	"github.com/zolinz/protobuf-test/simplepb"
-	"google.golang.org/protobuf/proto"
 	"io/ioutil"
 	"log"
 )
@@ -19,6 +20,8 @@ func main() {
 	fmt.Println("here are the values ")
 	fmt.Println(sm2.GetName())
 	fmt.Println(sm2.GetAge())
+
+	fmt.Println(toJson(myMessage))
 }
 
 //marshal - serialize
@@ -51,10 +54,19 @@ func readFromFile(fileName string, pb proto.Message) {
 
 func doSimple() *simplepb.Simple {
 	sm := simplepb.Simple{
-		Name: "Zolika",
-		Age:  46,
+		Name: "James Bond",
+		Age:  35,
 	}
 
 	fmt.Print(sm)
 	return &sm
+}
+
+func toJson(pb proto.Message) string {
+	marshaler := jsonpb.Marshaler{}
+	out, err := marshaler.MarshalToString(pb)
+	if err != nil {
+		log.Fatalln("marshaling error")
+	}
+	return out
 }
